@@ -1,0 +1,6 @@
+@ObligatoriskOpgave_HostAddress = http://localhost:5197
+
+GET {{ObligatoriskOpgave_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
