@@ -3,6 +3,7 @@
     public class Record
     {
         public int ID { get; set; }
+
         public string Title { get; set; }
         public string Artist { get; set; }
         public int DurationInSecs { get; set; }
