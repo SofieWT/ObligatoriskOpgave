@@ -22,7 +22,7 @@ namespace ObligatoriskOpgave.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult<IEnumerable<Record>> Get()
         {
             var records = _repo.GetAll();
