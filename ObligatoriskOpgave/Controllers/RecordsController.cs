@@ -35,6 +35,7 @@ namespace ObligatoriskOpgave.Controllers
                 return Ok(records);
             }
             return NotFound();
+
         }
 
         // GET api/<RecordsController>/5
