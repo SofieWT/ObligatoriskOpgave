@@ -15,9 +15,31 @@ namespace ObligatoriskOpgave.Services
 
 
 
-        public IEnumerable<Record> GetAll()
+        public IEnumerable<Record> GetAll(string? title = null, string? artist = null, int? durationInSecs = null, string? publicationYear = null)
         {
-            return _records.AsReadOnly();
+            var query = _records.AsQueryable();
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                query = query.Where(r => r.Title != null && r.Title.Contains(title));
+            }
+
+            if (!string.IsNullOrEmpty(artist))
+            {
+                query = query.Where(r => r.Artist != null && r.Artist.Contains(artist));
+            }
+
+            if (durationInSecs.HasValue)
+            {
+                query = query.Where(r => r.DurationInSecs == durationInSecs.Value);
+            }
+
+            if (!string.IsNullOrEmpty(publicationYear))
+            {
+                query = query.Where(r => r.PublicationYear != null && r.PublicationYear == publicationYear);
+            }
+
+            return query.ToList();
         }
 
 
