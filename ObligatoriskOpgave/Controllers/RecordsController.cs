@@ -23,9 +23,13 @@ namespace ObligatoriskOpgave.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[Authorize(Roles = "Admin")]
-        public ActionResult<IEnumerable<Record>> Get()
+        public ActionResult<IEnumerable<Record>> Get(
+            [FromQuery] string? title = null, 
+            [FromQuery] string? artist = null, 
+            [FromQuery] int? durationInSecs = null, 
+            [FromQuery] string? publicationYear = null)
         {
-            var records = _repo.GetAll();
+            var records = _repo.GetAll(title, artist, durationInSecs, publicationYear);
             if (records.Any())
             {
                 return Ok(records);
