@@ -1,15 +1,22 @@
-﻿using ObligatoriskOpgave.Services;
+﻿//using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.Extensions.Configuration;
+using ObligatoriskOpgave.Services;
+using ObligatoriskOpgave.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace UnitTests
 {
     public class RecordTests
     {
         private RecordsRepositoryList _repo;
+        private AuthRepository _authRepo;
+        private IConfiguration config;
         public RecordTests()
         {
             _repo = new RecordsRepositoryList();
+            _authRepo = new AuthRepository(config);
         }
-
+        
 
         [Fact]
         public void GetAll_ReturnsAllRecords()
@@ -85,7 +92,25 @@ namespace UnitTests
             Assert.Equal(publicationYearFilter, records.First().PublicationYear);
         }
 
+        #region AuthTests:
 
+        [Fact]
+        public void LoginTest()
+        {
+            LoginRequest loginRequest = new LoginRequest()
+            {
+                Username = "Sofie",
+                Password = "1234"
+
+            };
+
+            //act
+            var user = _authRepo.Login(loginRequest);
+
+            //assert
+            Assert.NotNull(user);
+        }
+        #endregion
 
     }
 }

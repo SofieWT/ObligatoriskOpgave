@@ -8,6 +8,8 @@ namespace ObligatoriskOpgave.Services
 {
     public class AuthRepository
     {
+
+        private string _role = "";
         private List<User> _users = new List<User>
         {
             new User { Username = "admin", Password = "1234", Role = "Admin" },
@@ -25,26 +27,26 @@ namespace ObligatoriskOpgave.Services
 
         public object Login(LoginRequest login)
         {
-            string role = "";
+            
             User? user = _users.FirstOrDefault(u => u.Username == login.Username && u.Password == login.Password);
 
             if (login.Username == "admin" && login.Password == "1234")
             {
-                role = "Admin"; //You can assign roles based on your logic
-                var token = GenerateJwtToken(login.Username, role);
-                return (new { token, role });
+                _role = "Admin"; //You can assign roles based on your logic
+                var token = GenerateJwtToken(login.Username, _role);
+                return (new { token, _role });
             }
             else if (login.Username == "Rebecca" && login.Password == "1234")
             {
-                role = "User"; //You can assign roles based on your logic
-                var token = GenerateJwtToken(login.Username, role);
-                return new { token, role };
+                _role = "User"; //You can assign roles based on your logic
+                var token = GenerateJwtToken(login.Username, _role);
+                return new { token, _role };
             }
             else if (login.Username == "Sofie" && login.Password == "1234")
             {
-                role = "User"; //You can assign roles based on your logic
-                var token = GenerateJwtToken(login.Username, role);
-                return (new { token, role });
+                _role = "User"; //You can assign roles based on your logic
+                var token = GenerateJwtToken(login.Username, _role);
+                return (new { token, _role });
             }
             else
             {

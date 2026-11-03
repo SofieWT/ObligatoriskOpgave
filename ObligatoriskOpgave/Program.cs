@@ -59,7 +59,7 @@ builder.Services.AddOpenApi();
 
 #region dependency injection
 builder.Services.AddSingleton<RecordsRepositoryList>();
-buider.Services.AddSingleton<AuthRepository>();
+builder.Services.AddSingleton<AuthRepository>();
 #endregion
 
 var app = builder.Build();
