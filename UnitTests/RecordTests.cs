@@ -32,5 +32,60 @@ namespace UnitTests
             Assert.Equal(200, records.Last().DurationInSecs);
             Assert.Equal("2021", records.Last().PublicationYear);
         }
+
+        [Fact]
+        public void GetAll_WithTitleFilter_ReturnsFilteredRecords()
+        {
+            // Arrange
+            string titleFilter = "Song 1";
+            // Act
+            var records = _repo.GetAll(title: titleFilter);
+            // Assert
+            Assert.NotNull(records);
+            Assert.Single(records);
+            Assert.Equal(titleFilter, records.First().Title);
+        }
+
+        [Fact]
+        public void GetAll_WithArtistFilter_ReturnsFilteredRecords()
+        {
+            // Arrange
+            string artistFilter = "Artist 2";
+            // Act
+            var records = _repo.GetAll(artist: artistFilter);
+            // Assert
+            Assert.NotNull(records);
+            Assert.Single(records);
+            Assert.Equal(artistFilter, records.First().Artist);
+        }
+
+        [Fact]
+        public void GetAll_WithDurationFilter_ReturnsFilteredRecords()
+        {
+            // Arrange
+            int durationFilter = 200;
+            // Act
+            var records = _repo.GetAll(durationInSecs: durationFilter);
+            // Assert
+            Assert.NotNull(records);
+            Assert.Single(records);
+            Assert.Equal(durationFilter, records.First().DurationInSecs);
+        }
+
+        [Fact]
+        public void GetAll_WithPublicationYearFilter_ReturnsFilteredRecords()
+        {
+            // Arrange
+            string publicationYearFilter = "2020";
+            // Act
+            var records = _repo.GetAll(publicationYear: publicationYearFilter);
+            // Assert
+            Assert.NotNull(records);
+            Assert.Single(records);
+            Assert.Equal(publicationYearFilter, records.First().PublicationYear);
+        }
+
+
+
     }
 }
