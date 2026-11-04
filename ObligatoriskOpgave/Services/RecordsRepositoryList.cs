@@ -42,6 +42,13 @@ namespace ObligatoriskOpgave.Services
             return query.ToList();
         }
 
+        public Record AddRecord(Record record)
+        {
+            record.ID = _nextId++;
+            _records.Add(record);
+            return record;
+        }
+
 
     }
 }

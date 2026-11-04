@@ -22,7 +22,7 @@ namespace ObligatoriskOpgave.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         public ActionResult<IEnumerable<Record>> Get(
             [FromQuery] string? title = null, 
             [FromQuery] string? artist = null, 
@@ -47,8 +47,17 @@ namespace ObligatoriskOpgave.Controllers
 
         // POST api/<RecordsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Admin")]
+        public ActionResult<Record> Post([FromBody] Record record)
         {
+            var addedRecord = _repo.AddRecord(record);
+            if(addedRecord == null)
+            {
+                return BadRequest("Could not add the record.");
+            }
+            return CreatedAtAction(nameof(Get), new { id = addedRecord.ID }, addedRecord);
         }
 
         // PUT api/<RecordsController>/5
