@@ -49,6 +49,15 @@ namespace ObligatoriskOpgave.Services
             return record;
         }
 
-
+        public Record? DeleteRecord(int id)
+        {
+            var record = _records.FirstOrDefault(r => r.ID == id);
+            if (record != null)
+            {
+                _records.Remove(record);
+                return record;
+            }
+            return null;
+        }
     }
 }

@@ -116,6 +116,18 @@ namespace UnitTests
             Assert.Equal(3, addedRecord.ID); // Since we already have 2 records in the repository
             Assert.Equal(3, _repo.GetAll().Count()); // Ensure the total count is now 3
         }
+        [Fact]
+        public void DeleteRecord_DeletesRecordSuccessfully()
+        {
+            // Arrange
+            int recordIdToDelete = 1; // Assuming we want to delete the record with ID 1
+            // Act
+            var deletedRecord = _repo.DeleteRecord(recordIdToDelete);
+            // Assert
+            Assert.NotNull(deletedRecord);
+            Assert.Equal(recordIdToDelete, deletedRecord.ID);
+            Assert.Single(_repo.GetAll()); // Ensure the total count is now 1 after deletion
+        }
 
 
 

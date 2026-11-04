@@ -68,8 +68,17 @@ namespace ObligatoriskOpgave.Controllers
 
         // DELETE api/<RecordsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
+        public ActionResult<Record> Delete(int id)
         {
+            var deletedRecord = _repo.DeleteRecord(id);
+            if (deletedRecord == null)
+            {
+                return NotFound();
+            }
+            return Ok(deletedRecord);
         }
     }
 }
