@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using ObligatoriskOpgave.Services;
 using ObligatoriskOpgave.Models;
 using Microsoft.AspNetCore.Identity;
+using Record = ObligatoriskOpgave.Models.Record;
 
 namespace UnitTests
 {
@@ -91,6 +92,34 @@ namespace UnitTests
             Assert.Single(records);
             Assert.Equal(publicationYearFilter, records.First().PublicationYear);
         }
+
+        [Fact]
+        public void AddRecord_AddsRecordSuccessfully()
+        {
+            // Arrange
+            Record newRecord = new Record
+            {
+                Title = "New Song",
+                Artist = "New Artist",
+                DurationInSecs = 250,
+                PublicationYear = "2023"
+            };
+            // Act
+            var addedRecord = _repo.AddRecord(newRecord);
+
+            // Assert
+            Assert.NotNull(addedRecord);
+            Assert.Equal(newRecord.Title, addedRecord.Title);
+            Assert.Equal(newRecord.Artist, addedRecord.Artist);
+            Assert.Equal(newRecord.DurationInSecs, addedRecord.DurationInSecs);
+            Assert.Equal(newRecord.PublicationYear, addedRecord.PublicationYear);
+            Assert.Equal(3, addedRecord.ID); // Since we already have 2 records in the repository
+            Assert.Equal(3, _repo.GetAll().Count()); // Ensure the total count is now 3
+        }
+
+
+
+
 
         #region AuthTests:
 
